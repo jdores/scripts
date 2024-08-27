@@ -40,12 +40,22 @@ else
     internal_reachable_mwan=$(echo "NOK")
 fi
 
+# Make a curl request to an internal website available via cloudflared (httpbin blocked by Magic Firewall)
+internal_content_httpbin=$(curl --max-time 2 -s http://10.156.15.234)
+echo " $internal_content_httpbin" > mwan_generate_traffic_httpbin.txt
+dump=$(grep "DOCTYPE" mwan_generate_traffic_httpbin.txt)
+if [ $? -eq 0 ]; then
+    internal_reachable_httpbin=$(echo "OK")
+else
+    internal_reachable_httpbin=$(echo "NOK")
+fi
+
 # Append IP address and timestamp to log file
-echo "$timestamp - $ip_address. Reachability: Cfd $internal_reachable_cfd MWan $internal_reachable_mwan Ext $external_reachable" >> mwan_generate_traffic_logs.txt
+echo "$timestamp - $ip_address. Reachability: Cfd $internal_reachable_cfd MWan $internal_reachable_mwan Ext $external_reachable Httpbin $internal_reachable_httpbin" >> mwan_generate_traffic_logs.txt
 
 #echo "Pasting curl for external content"
 #echo "$external_content"
-echo "$timestamp - $ip_address. Reachability: Cfd $internal_reachable_cfd MWan $internal_reachable_mwan Ext $external_reachable"
+echo "$timestamp - $ip_address. Reachability: Cfd $internal_reachable_cfd MWan $internal_reachable_mwan Ext $external_reachable Httpbin $internal_reachable_httpbin"
    
 #echo "Sleeping for 60sec..."
 sleep 60
