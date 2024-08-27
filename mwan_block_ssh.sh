@@ -8,9 +8,8 @@ while true; do
 
 timestamp=$(date +"%Y-%m-%d %T")
 
+echo "$timestamp"
 ssh_access=$(ssh -o ConnectTimeout=2 jose@10.26.26.207)
-
-echo "$timestamp - $ssh_access"
    
 #echo "Sleeping for 10sec..."
 sleep 10
