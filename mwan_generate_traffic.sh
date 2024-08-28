@@ -8,10 +8,10 @@ while true; do
 timestamp=$(date +"%Y-%m-%d %T")
 
 # Make a curl request to get the current public IP
-ip_address=$(curl -s https://ipv4.icanhazip.com/)                                                  
+ip_address=$(curl --max-time 2 -s https://ipv4.icanhazip.com/)                                                  
 
 # Make a curl request to an external website in the internet                                                                                         
-external_content=$(curl -s https://www.techmeme.com)                                               
+external_content=$(curl --max-time 2 -s https://www.techmeme.com)                                               
 echo " $external_content" > mwan_generate_traffic_external.txt                                                            
 dump=$(grep "DOCTYPE" mwan_generate_traffic_external.txt)                                                                 
 if [ $? -eq 0 ]; then                                                                              
@@ -21,7 +21,7 @@ else
 fi
 
 # Make a curl request to an internal website available via cloudflared
-internal_content_cfd=$(curl -s http://10.132.0.2)
+internal_content_cfd=$(curl --max-time 2 -s http://10.132.0.2)
 echo " $internal_content_cfd" > mwan_generate_traffic_cfd.txt
 dump=$(grep "DOCTYPE" mwan_generate_traffic_cfd.txt)
 if [ $? -eq 0 ]; then
@@ -31,7 +31,7 @@ else
 fi
 
 # Make a curl request to an internal website available via magic wan
-internal_content_mwan=$(curl -s http://10.186.0.55)
+internal_content_mwan=$(curl --max-time 2 -s http://10.186.0.55)
 echo " $internal_content_mwan" > mwan_generate_traffic_mwan.txt
 dump=$(grep "DOCTYPE" mwan_generate_traffic_mwan.txt)
 if [ $? -eq 0 ]; then
