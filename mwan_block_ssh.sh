@@ -11,7 +11,7 @@ while true; do
 timestamp=$(date +"%Y-%m-%d %T")
 
 #Waits 2 seconds to check whether the connection can be established
-ssh -o ConnectTimeout=2 jose@10.156.15.234 > mwan_block_ssh.txt 2>1&
+ssh -o ConnectTimeout=2 jose@10.186.0.55 &> mwan_block_ssh.txt
 dump=$(grep "kex_exchange_identification" mwan_block_ssh.txt)
 if [ $? -eq 0 ]; then
     mwan_block=$(echo "NOT BLOCKED")
@@ -20,10 +20,10 @@ else
 fi
 
 # Append result to log file
-echo "$timestamp - SSH to 10.156.15.234 - $mwan_block" >> mwan_block_ssh_logs.txt
+echo "$timestamp - SSH to 10.186.0.55 - $mwan_block" >> mwan_block_ssh_logs.txt
 
 # Output result to console
-echo "$timestamp - SSH to 10.156.15.234 - $mwan_block"
+echo "$timestamp - SSH to 10.186.0.55 - $mwan_block"
 
 #echo "Sleeping for 10sec..."
 sleep 10
