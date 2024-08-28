@@ -50,11 +50,10 @@ else
     internal_reachable_httpbin=$(echo "NOK")
 fi
 
-# Append IP address and timestamp to log file
+# Append result to log file
 echo "$timestamp - $ip_address. Reachability: Cfd $internal_reachable_cfd MWan $internal_reachable_mwan Ext $external_reachable Httpbin $internal_reachable_httpbin" >> mwan_generate_traffic_logs.txt
 
-#echo "Pasting curl for external content"
-#echo "$external_content"
+# Output result to console
 echo "$timestamp - $ip_address. Reachability: Cfd $internal_reachable_cfd MWan $internal_reachable_mwan Ext $external_reachable Httpbin $internal_reachable_httpbin"
    
 #echo "Sleeping for 60sec..."
