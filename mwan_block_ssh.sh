@@ -12,11 +12,11 @@ timestamp=$(date +"%Y-%m-%d %T")
 
 #Waits 2 seconds to check whether the connection can be established
 ssh -o ConnectTimeout=2 jose@10.186.0.55 &> mwan_block_ssh.txt
-dump=$(grep "kex_exchange_identification" mwan_block_ssh.txt)
+dump=$(grep "Connection timed out" mwan_block_ssh.txt)
 if [ $? -eq 0 ]; then
-    mwan_block=$(echo "NOT BLOCKED")
-else
     mwan_block=$(echo "BLOCKED")
+else
+    mwan_block=$(echo "NOT BLOCKED")
 fi
 
 # Append result to log file
